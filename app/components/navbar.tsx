@@ -188,8 +188,8 @@ export const Navbar = () => {
         data-scrolled={scrolled}
         onPointerMove={handleGlassPointerMove}
         className={`nav-glass liquid-glass relative ml-auto overflow-hidden px-2.5 py-2 sm:px-4 ${scrolled
-            ? 'pointer-events-auto w-[52px] translate-x-[var(--nav-escape)] rounded-full'
-            : 'w-full rounded-[1.75rem] sm:rounded-full'
+          ? 'pointer-events-auto w-[52px] translate-x-[var(--nav-escape)] rounded-full'
+          : 'w-full rounded-[1.75rem] sm:rounded-full'
           }`}
       >
         <span aria-hidden="true" className="liquid-glass-tint" />
@@ -205,8 +205,8 @@ export const Navbar = () => {
           aria-hidden={scrolled}
           inert={scrolled}
           className={`absolute right-0 top-0 z-10 flex h-[52px] w-[100cqw] items-center justify-between gap-2 px-2.5 transition-opacity motion-reduce:transition-none sm:gap-3 sm:px-4 ${scrolled
-              ? 'pointer-events-none opacity-0 duration-[250ms]'
-              : 'opacity-100 delay-200 duration-300'
+            ? 'pointer-events-none opacity-0 duration-[250ms]'
+            : 'opacity-100 delay-200 duration-300'
             }`}
         >
           <h1
@@ -218,7 +218,7 @@ export const Navbar = () => {
               className={`inline-flex max-w-full items-center rounded-full px-1 text-lg font-bold tracking-tight sm:text-2xl ${focusRingClasses}`}
             >
               <span className="block whitespace-nowrap bg-gradient-to-r from-emerald-500 to-cyan-600 bg-clip-text text-transparent transition-[filter] duration-300 hover:brightness-110 dark:from-green-400 dark:to-cyan-500">
-                Syazwan
+                Syaz
               </span>
             </Link>
           </h1>
@@ -316,8 +316,8 @@ export const Navbar = () => {
           aria-controls="compact-nav"
           aria-label={compactMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           className={`absolute right-0 top-0 z-20 flex h-[52px] w-[52px] items-center justify-center rounded-full text-slate-700 transition-[opacity,scale] focus-visible:ring-inset motion-reduce:transition-none dark:text-slate-200 dark:hover:text-white ${focusRingClasses} ${scrolled
-              ? 'opacity-100 delay-100 duration-200 active:scale-90'
-              : 'pointer-events-none opacity-0 duration-150'
+            ? 'opacity-100 delay-100 duration-200 active:scale-90'
+            : 'pointer-events-none opacity-0 duration-150'
             }`}
         >
           <MenuIcon open={compactMenuOpen} />
@@ -347,8 +347,8 @@ export const Navbar = () => {
         aria-hidden={!compactMenuOpen}
         inert={!compactMenuOpen}
         className={`absolute right-0 top-[3.75rem] z-50 w-64 max-w-[calc(100vw-2rem)] translate-x-[var(--nav-escape)] origin-top-right transition-[opacity,translate,scale] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${compactMenuOpen
-            ? 'pointer-events-auto translate-y-0 scale-100 opacity-100'
-            : 'pointer-events-none -translate-y-2 scale-95 opacity-0'
+          ? 'pointer-events-auto translate-y-0 scale-100 opacity-100'
+          : 'pointer-events-none -translate-y-2 scale-95 opacity-0'
           }`}
       >
         <div
