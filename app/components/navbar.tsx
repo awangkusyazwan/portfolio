@@ -25,14 +25,12 @@ type PillPosition = {
 const MenuIcon = ({ open }: { open: boolean }) => (
   <span aria-hidden="true" className="relative z-10 block h-3.5 w-4">
     <span
-      className={`absolute left-0 top-1/2 h-[1.5px] w-4 rounded-full bg-current transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
-        open ? '-translate-y-1/2 rotate-45' : '-translate-y-[3.5px]'
-      }`}
+      className={`absolute left-0 top-1/2 h-[1.5px] w-4 rounded-full bg-current transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${open ? '-translate-y-1/2 rotate-45' : '-translate-y-[3.5px]'
+        }`}
     />
     <span
-      className={`absolute left-0 top-1/2 h-[1.5px] w-4 rounded-full bg-current transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
-        open ? '-translate-y-1/2 -rotate-45' : 'translate-y-[2px]'
-      }`}
+      className={`absolute left-0 top-1/2 h-[1.5px] w-4 rounded-full bg-current transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${open ? '-translate-y-1/2 -rotate-45' : 'translate-y-[2px]'
+        }`}
     />
   </span>
 );
@@ -181,20 +179,18 @@ export const Navbar = () => {
   return (
     <nav
       aria-label="Primary"
-      className={`nav-morph nav-enter sticky top-4 z-50 ${
-        scrolled ? 'pointer-events-none' : ''
-      }`}
+      className={`nav-morph nav-enter sticky top-4 z-50 ${scrolled ? 'pointer-events-none' : ''
+        }`}
     >
       {/* One glass surface that morphs from the full bar into the hamburger. */}
       <div
         ref={glassRef}
         data-scrolled={scrolled}
         onPointerMove={handleGlassPointerMove}
-        className={`nav-glass liquid-glass relative ml-auto overflow-hidden px-2.5 py-2 sm:px-4 ${
-          scrolled
+        className={`nav-glass liquid-glass relative ml-auto overflow-hidden px-2.5 py-2 sm:px-4 ${scrolled
             ? 'pointer-events-auto w-[52px] translate-x-[var(--nav-escape)] rounded-full'
             : 'w-full rounded-[1.75rem] sm:rounded-full'
-        }`}
+          }`}
       >
         <span aria-hidden="true" className="liquid-glass-tint" />
         <span aria-hidden="true" className="liquid-glass-sheen" />
@@ -208,11 +204,10 @@ export const Navbar = () => {
         <div
           aria-hidden={scrolled}
           inert={scrolled}
-          className={`absolute right-0 top-0 z-10 flex h-[52px] w-[100cqw] items-center justify-between gap-2 px-2.5 transition-opacity motion-reduce:transition-none sm:gap-3 sm:px-4 ${
-            scrolled
+          className={`absolute right-0 top-0 z-10 flex h-[52px] w-[100cqw] items-center justify-between gap-2 px-2.5 transition-opacity motion-reduce:transition-none sm:gap-3 sm:px-4 ${scrolled
               ? 'pointer-events-none opacity-0 duration-[250ms]'
               : 'opacity-100 delay-200 duration-300'
-          }`}
+            }`}
         >
           <h1
             className="nav-reveal relative z-10 min-w-0"
@@ -223,7 +218,7 @@ export const Navbar = () => {
               className={`inline-flex max-w-full items-center rounded-full px-1 text-lg font-bold tracking-tight sm:text-2xl ${focusRingClasses}`}
             >
               <span className="block whitespace-nowrap bg-gradient-to-r from-emerald-500 to-cyan-600 bg-clip-text text-transparent transition-[filter] duration-300 hover:brightness-110 dark:from-green-400 dark:to-cyan-500">
-                Awangku Syazwan
+                Syazwan
               </span>
             </Link>
           </h1>
@@ -320,11 +315,10 @@ export const Navbar = () => {
           aria-expanded={compactMenuOpen}
           aria-controls="compact-nav"
           aria-label={compactMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-          className={`absolute right-0 top-0 z-20 flex h-[52px] w-[52px] items-center justify-center rounded-full text-slate-700 transition-[opacity,scale] focus-visible:ring-inset motion-reduce:transition-none dark:text-slate-200 dark:hover:text-white ${focusRingClasses} ${
-            scrolled
+          className={`absolute right-0 top-0 z-20 flex h-[52px] w-[52px] items-center justify-center rounded-full text-slate-700 transition-[opacity,scale] focus-visible:ring-inset motion-reduce:transition-none dark:text-slate-200 dark:hover:text-white ${focusRingClasses} ${scrolled
               ? 'opacity-100 delay-100 duration-200 active:scale-90'
               : 'pointer-events-none opacity-0 duration-150'
-          }`}
+            }`}
         >
           <MenuIcon open={compactMenuOpen} />
         </button>
@@ -335,9 +329,8 @@ export const Navbar = () => {
           aria-hidden={!mobileMenuOpen}
           inert={!mobileMenuOpen}
           style={scrolled ? { display: 'none' } : undefined}
-          className={`relative z-10 grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none sm:hidden ${
-            mobileMenuOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-          }`}
+          className={`relative z-10 grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none sm:hidden ${mobileMenuOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+            }`}
         >
           <div className="min-h-0 overflow-hidden">
             <div className="mt-2 flex flex-col gap-1 border-t border-slate-900/10 px-0.5 pb-1 pt-2 dark:border-white/10">
@@ -353,11 +346,10 @@ export const Navbar = () => {
         id="compact-nav"
         aria-hidden={!compactMenuOpen}
         inert={!compactMenuOpen}
-        className={`absolute right-0 top-[3.75rem] z-50 w-64 max-w-[calc(100vw-2rem)] translate-x-[var(--nav-escape)] origin-top-right transition-[opacity,translate,scale] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
-          compactMenuOpen
+        className={`absolute right-0 top-[3.75rem] z-50 w-64 max-w-[calc(100vw-2rem)] translate-x-[var(--nav-escape)] origin-top-right transition-[opacity,translate,scale] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${compactMenuOpen
             ? 'pointer-events-auto translate-y-0 scale-100 opacity-100'
             : 'pointer-events-none -translate-y-2 scale-95 opacity-0'
-        }`}
+          }`}
       >
         <div
           data-scrolled="true"
