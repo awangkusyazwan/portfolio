@@ -2,7 +2,7 @@ import { Navbar } from '../components/navbar';
 
 export default function AboutPage() {
   return (
-    <main className="relative flex min-h-svh w-full flex-col overflow-x-clip bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
+    <main className="relative flex min-h-svh w-full flex-col overflow-x-clip bg-background text-slate-900 transition-colors duration-300 dark:text-slate-100 px-6 py-6">
       <Navbar />
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 py-6 sm:px-8 sm:py-8 lg:px-12 lg:py-10">
         <section
@@ -13,7 +13,7 @@ export default function AboutPage() {
             About
           </p>
           <h1 className="text-3xl font-black leading-[1.05] tracking-tight sm:text-4xl lg:text-5xl">
-            Hey, I&apos;m <span className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent dark:from-cyan-400 dark:to-blue-500">Awangku Syazwan</span>
+            Hey, I&apos;m <span className="bg-gradient-to-r from-teal-700 to-cyan-700 bg-clip-text text-transparent dark:from-teal-300 dark:to-cyan-400">Syazwan</span>
           </h1>
           <p className="mx-auto max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300">
             I&apos;m a software developer specialising in web development using the MERN

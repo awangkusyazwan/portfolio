@@ -1,108 +1,106 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { useRef, useSyncExternalStore } from 'react';
+import { CineonToneMapping, type Mesh } from 'three';
+
+const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+
+const CUBE_COLORS = {
+  light: '#14b8a6',
+  dark: '#2dd4bf',
+} as const;
+
+function subscribeToReducedMotion(onChange: () => void) {
+  const media = window.matchMedia(REDUCED_MOTION_QUERY);
+  media.addEventListener('change', onChange);
+
+  return () => media.removeEventListener('change', onChange);
+}
+
+function getReducedMotionSnapshot() {
+  return window.matchMedia(REDUCED_MOTION_QUERY).matches;
+}
+
+function usePrefersReducedMotion() {
+  return useSyncExternalStore(subscribeToReducedMotion, getReducedMotionSnapshot, () => false);
+}
+
+function subscribeToTheme(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  });
+
+  return () => observer.disconnect();
+}
+
+function getThemeSnapshot() {
+  return document.documentElement.getAttribute('data-theme') === 'dark';
+}
+
+function useIsDarkTheme() {
+  return useSyncExternalStore(subscribeToTheme, getThemeSnapshot, () => false);
+}
+
+type SceneContentsProps = {
+  animate: boolean;
+  dark: boolean;
+};
+
+const RotatingBox = ({ animate, dark }: SceneContentsProps) => {
+  const meshRef = useRef<Mesh>(null);
+
+  useFrame((_, delta) => {
+    if (!animate || !meshRef.current) return;
+
+    meshRef.current.rotation.x += delta * 0.5;
+    meshRef.current.rotation.y += delta * 0.5;
+  });
+
+  return (
+    <mesh ref={meshRef} castShadow receiveShadow>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial
+        color={dark ? CUBE_COLORS.dark : CUBE_COLORS.light}
+        roughness={0.7}
+        metalness={0.3}
+      />
+    </mesh>
+  );
+};
+
+const SceneContents = ({ animate, dark }: SceneContentsProps) => (
+  <>
+    <ambientLight intensity={0.5} />
+    <directionalLight
+      position={[-2, 2, 1]}
+      intensity={1}
+      castShadow
+      shadow-mapSize-width={1024}
+      shadow-mapSize-height={1024}
+    />
+    <RotatingBox animate={animate} dark={dark} />
+  </>
+);
 
 export const ThreeScene = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = usePrefersReducedMotion();
+  const dark = useIsDarkTheme();
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    // 1. Scene, Camera, Renderer
-    const scene = new THREE.Scene();
-
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.z = 5;
-
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    container.appendChild(renderer.domElement);
-
-    // 2. Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-
-    const pointLight = new THREE.PointLight(0xff00ff, 1); // Neon Purple light
-    pointLight.position.set(0, 2, 5);
-    scene.add(pointLight);
-
-    // 3. The 3D Object (An Icosahedron with wireframe)
-    const geometry = new THREE.IcosahedronGeometry(2, 1);
-    const material = new THREE.MeshStandardMaterial({
-      color: 0xffffff,
-      roughness: 0.4,
-      metalness: 0.8,
-      wireframe: true,
-    });
-    const sphere = new THREE.Mesh(geometry, material);
-    scene.add(sphere);
-
-    // 4. Add a second object (A Torus Knot) for complexity
-    const torusGeometry = new THREE.TorusKnotGeometry(0.8, 0.2, 100, 16);
-    const torusMaterial = new THREE.MeshNormalMaterial({ transparent: true, opacity: 0.3 });
-    const torus = new THREE.Mesh(torusGeometry, torusMaterial);
-    scene.add(torus);
-
-    // 5. Animation + mouse interaction
-    let mouseX = 0;
-    let mouseY = 0;
-
-    const windowHalfX = window.innerWidth / 2;
-    const windowHalfY = window.innerHeight / 2;
-
-    function handleMousemove(event: MouseEvent) {
-      mouseX = event.clientX - windowHalfX;
-      mouseY = event.clientY - windowHalfY;
-
-      // Update object rotation based on mouse
-      sphere.rotation.x += 0.0002 * (mouseY + sphere.rotation.y);
-      sphere.rotation.y -= 0.0002 * (mouseX + sphere.rotation.x);
-    }
-
-    // --- RENDER LOOP ---
-    let frameId = 0;
-
-    function animate() {
-      frameId = requestAnimationFrame(animate);
-
-      // Smooth rotation logic
-      sphere.rotation.y += 0.002;
-      torus.rotation.x -= 0.01;
-      torus.rotation.y += 0.01;
-
-      renderer.render(scene, camera);
-    }
-
-    animate();
-    window.addEventListener('mousemove', handleMousemove);
-
-    // Handle Resize
-    function resizeWindow() {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    }
-    window.addEventListener('resize', resizeWindow);
-
-    // Cleanup
-    return () => {
-      cancelAnimationFrame(frameId);
-      window.removeEventListener('mousemove', handleMousemove);
-      window.removeEventListener('resize', resizeWindow);
-
-      if (renderer.domElement.parentNode === container) {
-        container.removeChild(renderer.domElement);
-      }
-
-      geometry.dispose();
-      material.dispose();
-      torusGeometry.dispose();
-      torusMaterial.dispose();
-      renderer.dispose();
-    };
-  }, []);
-
-  return <div ref={containerRef} aria-hidden="true" className="pointer-events-none absolute inset-0 z-0" />;
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+      <Canvas
+        shadows
+        frameloop={reducedMotion ? 'demand' : 'always'}
+        camera={{ position: [2, 2, 2], fov: 60 }}
+        gl={{ alpha: true, antialias: true, toneMapping: CineonToneMapping }}
+        onCreated={({ camera }) => camera.lookAt(0, 0, 0)}
+        dpr={[1, 1.75]}
+      >
+        <SceneContents animate={!reducedMotion} dark={dark} />
+      </Canvas>
+    </div>
+  );
 };

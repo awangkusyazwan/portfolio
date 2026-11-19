@@ -67,7 +67,7 @@ const MenuContactLink = ({ onNavigate }: { onNavigate: () => void }) => (
   <Link
     href="/contact"
     onClick={onNavigate}
-    className={`liquid-cta mt-1 flex h-11 items-center justify-center gap-1.5 rounded-full px-4 text-sm font-semibold text-white ${focusRingClasses}`}
+    className={`liquid-cta mt-1 flex h-11 items-center justify-center gap-1.5 rounded-full px-4 text-sm font-semibold text-white dark:text-slate-950 ${focusRingClasses}`}
   >
     <span className="relative z-10">Contact</span>
     <svg
@@ -217,8 +217,8 @@ export const Navbar = () => {
               href="/"
               className={`inline-flex max-w-full items-center rounded-full px-1 text-lg font-bold tracking-tight sm:text-2xl ${focusRingClasses}`}
             >
-              <span className="block whitespace-nowrap bg-gradient-to-r from-emerald-500 to-cyan-600 bg-clip-text text-transparent transition-[filter] duration-300 hover:brightness-110 dark:from-green-400 dark:to-cyan-500">
-                Syaz
+              <span className="block whitespace-nowrap bg-gradient-to-r from-teal-700 to-cyan-700 bg-clip-text text-transparent dark:from-teal-300 dark:to-cyan-400">
+                Syazwan
               </span>
             </Link>
           </h1>
@@ -266,7 +266,7 @@ export const Navbar = () => {
 
             <Link
               href="/contact"
-              className={`liquid-cta group/cta flex h-9 items-center justify-center gap-1.5 rounded-full px-4 text-sm font-semibold text-white ${focusRingClasses}`}
+              className={`liquid-cta group/cta flex h-9 items-center justify-center gap-1.5 rounded-full px-4 text-sm font-semibold text-white dark:text-slate-950 ${focusRingClasses}`}
             >
               <span className="relative z-10">Contact</span>
               <svg

@@ -1,13 +1,19 @@
+import { ThreeScene } from './three-scene';
+
 const technologies = ['React', 'Next.js', 'Three.js', 'TypeScript', 'Tailwind'];
 
 export const Hero = () => {
   return (
-    <section className="flex flex-1 flex-col justify-center gap-10 py-14 sm:py-16 lg:flex-row lg:items-end lg:justify-between lg:gap-16 lg:py-20">
-      <div className="w-full max-w-2xl">
+    <section className="relative flex flex-1 flex-col justify-start gap-8 py-8 sm:gap-10 sm:py-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16 lg:py-20">
+      <div className="relative z-0 mx-auto aspect-square w-[clamp(16rem,80vw,34rem)] lg:absolute lg:inset-0 lg:aspect-auto lg:h-auto lg:w-full">
+        <ThreeScene />
+      </div>
+
+      <div className="relative z-10 w-full max-w-2xl">
         <h2 className="text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
-          Software <br />
-          <span className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent dark:from-cyan-400 dark:to-blue-500">
-            Developer
+          Reimagining <br />
+          <span className="bg-gradient-to-r from-teal-700 to-cyan-700 bg-clip-text text-transparent dark:from-teal-300 dark:to-cyan-400">
+            the Future
           </span>
         </h2>
         <p className="mt-6 max-w-lg text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300">
@@ -27,8 +33,7 @@ export const Hero = () => {
         </div>
       </div>
 
-      {/* Glassmorphism card to sit on top of 3D scene */}
-      <aside className="hidden w-full max-w-sm rounded-2xl border border-slate-900/10 bg-white/60 p-6 backdrop-blur-xl transition-colors duration-500 hover:border-purple-500/60 md:block lg:mb-1 lg:w-96 lg:shrink-0 dark:border-white/10 dark:bg-slate-900/40 dark:hover:border-purple-500/50">
+      <aside className="relative z-10 hidden w-full max-w-sm rounded-2xl border border-slate-900/10 bg-white/60 p-6 backdrop-blur-xl transition-colors duration-500 hover:border-purple-500/60 md:block lg:mb-1 lg:w-96 lg:shrink-0 dark:border-white/10 dark:bg-slate-900/40 dark:hover:border-purple-500/50">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           Stack used for this portfolio
         </p>
@@ -36,7 +41,7 @@ export const Hero = () => {
           {technologies.map((tech) => (
             <span
               key={tech}
-              className="rounded-lg border border-slate-900/10 bg-slate-100/80 px-3 py-1 font-mono text-xs text-cyan-700 dark:border-white/10 dark:bg-slate-800/60 dark:text-cyan-300"
+              className="rounded-lg border border-slate-900/10 bg-slate-100/80 px-3 py-1 font-mono text-xs text-teal-700 dark:border-white/10 dark:bg-slate-800/60 dark:text-teal-300"
             >
               {tech}
             </span>

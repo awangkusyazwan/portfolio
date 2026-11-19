@@ -86,18 +86,24 @@ export const ThemeToggle = () => {
     }
   }
 
-  const label = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+  const isDark = theme === 'dark';
+  const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
 
   return (
     <button
       type="button"
-      onClick={toggleTheme}
-      aria-label={label}
+      role="switch"
+      aria-checked={isDark}
+      aria-label="Dark mode"
       title={label}
-      className="flex h-9 w-9 items-center justify-center rounded-full text-slate-600 transition-[background-color,color,transform] duration-300 hover:bg-slate-900/[0.06] active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/70 motion-reduce:transition-none dark:text-slate-300 dark:hover:bg-white/10"
+      onClick={toggleTheme}
+      className="group relative inline-flex h-7 w-14 shrink-0 items-center rounded-full bg-slate-900/15 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.1)] transition-[background-color,transform] duration-300 hover:bg-slate-900/20 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/70 motion-reduce:transition-none dark:bg-teal-500 dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.2)] dark:hover:bg-teal-400"
     >
-      <span aria-hidden="true" className="relative block h-4 w-4">
-        {/* Sun: shown in dark mode, switches to light */}
+      {/* Track icons: sun on the light side, moon on the dark side */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-20 flex items-center justify-between px-[7px]"
+      >
         <svg
           viewBox="0 0 24 24"
           fill="none"
@@ -105,13 +111,12 @@ export const ThemeToggle = () => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="absolute inset-0 h-4 w-4 rotate-90 scale-50 opacity-0 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none dark:rotate-0 dark:scale-100 dark:opacity-100"
+          className="h-3.5 w-3.5 text-amber-500 transition-colors duration-300 motion-reduce:transition-none dark:text-white"
         >
           <circle cx="12" cy="12" r="4" />
           <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
         </svg>
 
-        {/* Moon: shown in light mode, switches to dark */}
         <svg
           viewBox="0 0 24 24"
           fill="none"
@@ -119,11 +124,17 @@ export const ThemeToggle = () => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="absolute inset-0 h-4 w-4 rotate-0 scale-100 opacity-100 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none dark:-rotate-90 dark:scale-50 dark:opacity-0"
+          className="h-3.5 w-3.5 text-slate-600 transition-colors duration-300 motion-reduce:transition-none dark:text-slate-900"
         >
           <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
         </svg>
       </span>
+
+      {/* Sliding thumb: left in light mode, right in dark mode */}
+      <span
+        aria-hidden="true"
+        className="absolute left-0.5 top-0.5 z-10 h-6 w-6 rounded-full bg-white shadow-[0_2px_5px_rgba(15,23,42,0.25)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none dark:translate-x-7"
+      />
     </button>
   );
 };

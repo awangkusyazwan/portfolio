@@ -1,12 +1,10 @@
 import { Hero } from './components/hero';
 import { Navbar } from './components/navbar';
 import { ProjectsPlaceholder } from './components/projects-placeholder';
-import { ThreeScene } from './components/three-scene';
 
 const Portfolio = () => {
   return (
-    <main className="relative flex min-h-svh w-full flex-col overflow-x-clip bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
-      <ThreeScene />
+    <main className="relative flex min-h-svh w-full flex-col overflow-x-clip bg-background text-slate-900 transition-colors duration-300 dark:text-slate-100">
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 py-6 sm:px-8 sm:py-8 lg:px-12 lg:py-10">
         <Navbar />
         <Hero />
