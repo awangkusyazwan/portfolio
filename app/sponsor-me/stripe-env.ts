@@ -47,12 +47,10 @@ export async function getStripeEnv(): Promise<{
   }
 
   const [secretKey, publishableKey] = await Promise.all([
-    (await readEnvValue(cloudflareEnv?.STRIPE_SECRET_KEY_SANDBOX)) ??
-      (await readEnvValue(cloudflareEnv?.STRIPE_SECRET_KEY)) ??
-      process.env.STRIPE_SECRET_KEY_SANDBOX,
-    (await readEnvValue(cloudflareEnv?.STRIPE_PUBLISHABLE_KEY_SANDBOX)) ??
-      (await readEnvValue(cloudflareEnv?.STRIPE_PUBLISHABLE_KEY)) ??
-      process.env.STRIPE_PUBLISHABLE_KEY_SANDBOX,
+    (await readEnvValue(cloudflareEnv?.STRIPE_SECRET_KEY)) ??
+    (await readEnvValue(cloudflareEnv?.STRIPE_SECRET_KEY_SANDBOX)),
+    (await readEnvValue(cloudflareEnv?.STRIPE_PUBLISHABLE_KEY)) ??
+    (await readEnvValue(cloudflareEnv?.STRIPE_PUBLISHABLE_KEY_SANDBOX))
   ]);
 
   return { secretKey, publishableKey };
