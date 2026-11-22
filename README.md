@@ -59,6 +59,35 @@ Use sandbox keys while developing, and live keys before deploying the payment fl
 the `STRIPE_*_KEY` pattern (for example, `STRIPE_SECRET_KEY` / `STRIPE_PUBLISHABLE_KEY`), while dev uses
 the `STRIPE_*_KEY_SANDBOX` pattern (for example, `STRIPE_SECRET_KEY_SANDBOX` / `STRIPE_PUBLISHABLE_KEY_SANDBOX`).
 
+## Contact form
+
+The `/contact` page posts to `/contact/send`, which validates the submission and sends the
+message through [Resend](https://resend.com) to `me+contact-portfolio@awangkusyazwan.my`.
+The visitor's address is set as the `reply_to`, so replying goes straight to them. There is
+also a hidden honeypot field to cut down on bot submissions.
+
+### Environment variables
+
+| Variable              | Required | Description                                                                                     |
+| --------------------- | -------- | ----------------------------------------------------------------------------------------------- |
+| `RESEND_API_KEY`      | Yes      | Resend API key used to send contact emails.                                                     |
+| `CONTACT_FROM_EMAIL`  | No       | Verified sender address, e.g. `Portfolio Contact <no-reply@awangkusyazwan.my>`. Defaults to Resend's `onboarding@resend.dev`, which can only send to the email on your Resend account. |
+| `SITE_URL`            | No       | Canonical origin used for the redirect after submitting (defaults to the request origin).        |
+
+For `next dev`, put the key in `.env.local` (`RESEND_API_KEY=re_...`). For Cloudflare/OpenNext,
+add `RESEND_API_KEY` as a secret binding (plain or Secrets Store) and, once you have verified
+your domain, set `CONTACT_FROM_EMAIL` to an address on it:
+
+```bash
+npx wrangler secret put RESEND_API_KEY
+# or, with the Secrets Store used by this repo:
+npx wrangler secrets-store secret put a17f23808ed3474aa94521d60783be05 RESEND_API_KEY
+```
+
+`RESEND_API_KEY` is already bound from the repo's Secrets Store in `wrangler.jsonc`. If you also
+store `CONTACT_FROM_EMAIL` there, add a matching entry to `secrets_store_secrets` so the worker
+receives it as a binding.
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.

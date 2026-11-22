@@ -11,3 +11,11 @@ STRIPE_PUBLISHABLE_KEY_SANDBOX=pk_test_replace_me
 # Optional: canonical site origin used for the Stripe success/cancel URLs
 # (defaults to the origin of the incoming request).
 # SITE_URL=https://awangkusyazwan.my
+
+# Resend API key used by the /contact form to deliver messages.
+RESEND_API_KEY=re_replace_me
+
+# Optional: verified sender address for contact emails. Defaults to
+# "Portfolio Contact <onboarding@resend.dev>", which only works while your
+# Resend account email matches the recipient (me+contact-portfolio@awangkusyazwan.my).
+# CONTACT_FROM_EMAIL=Portfolio Contact <no-reply@awangkusyazwan.my>

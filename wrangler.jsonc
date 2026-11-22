@@ -39,6 +39,11 @@
 			"binding": "STRIPE_PUBLISHABLE_KEY_SANDBOX",
 			"store_id": "a17f23808ed3474aa94521d60783be05",
 			"secret_name": "STRIPE_PUBLISHABLE_KEY_SANDBOX"
+		},
+		{
+			"binding": "RESEND_API_KEY",
+			"store_id": "a17f23808ed3474aa94521d60783be05",
+			"secret_name": "RESEND_API_KEY"
 		}
 	],
 	"images": {
