@@ -3,28 +3,12 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useRef, useSyncExternalStore } from 'react';
 import { CineonToneMapping, type Mesh } from 'three';
-
-const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+import { useMotionPaused } from './motion-store';
 
 const CUBE_COLORS = {
   light: '#14b8a6',
   dark: '#2dd4bf',
 } as const;
-
-function subscribeToReducedMotion(onChange: () => void) {
-  const media = window.matchMedia(REDUCED_MOTION_QUERY);
-  media.addEventListener('change', onChange);
-
-  return () => media.removeEventListener('change', onChange);
-}
-
-function getReducedMotionSnapshot() {
-  return window.matchMedia(REDUCED_MOTION_QUERY).matches;
-}
-
-function usePrefersReducedMotion() {
-  return useSyncExternalStore(subscribeToReducedMotion, getReducedMotionSnapshot, () => false);
-}
 
 function subscribeToTheme(onChange: () => void) {
   const observer = new MutationObserver(onChange);
@@ -86,20 +70,20 @@ const SceneContents = ({ animate, dark }: SceneContentsProps) => (
 );
 
 export const ThreeScene = () => {
-  const reducedMotion = usePrefersReducedMotion();
+  const paused = useMotionPaused();
   const dark = useIsDarkTheme();
 
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
       <Canvas
         shadows
-        frameloop={reducedMotion ? 'demand' : 'always'}
+        frameloop={paused ? 'demand' : 'always'}
         camera={{ position: [2, 2, 2], fov: 60 }}
         gl={{ alpha: true, antialias: true, toneMapping: CineonToneMapping }}
         onCreated={({ camera }) => camera.lookAt(0, 0, 0)}
         dpr={[1, 1.75]}
       >
-        <SceneContents animate={!reducedMotion} dark={dark} />
+        <SceneContents animate={!paused} dark={dark} />
       </Canvas>
     </div>
   );

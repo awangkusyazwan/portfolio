@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { LottieAnimation } from '../components/lottie-animation';
 import { Navbar } from '../components/navbar';
+import { StatusBanner } from '../components/status-banner';
 
 export const metadata: Metadata = {
   title: "Contact | Syazwan's Portfolio",
@@ -21,6 +22,27 @@ const statusMessages = {
       'border-rose-600/25 bg-rose-500/10 text-rose-950 dark:border-rose-400/25 dark:bg-rose-500/10 dark:text-rose-50',
     title: 'Check your details',
     body: 'Please add your name, a valid email address, and a message before sending.',
+  },
+  'invalid-name': {
+    role: 'alert',
+    className:
+      'border-rose-600/25 bg-rose-500/10 text-rose-950 dark:border-rose-400/25 dark:bg-rose-500/10 dark:text-rose-50',
+    title: 'Your name is missing',
+    body: 'Please add your name before sending the message.',
+  },
+  'invalid-email': {
+    role: 'alert',
+    className:
+      'border-rose-600/25 bg-rose-500/10 text-rose-950 dark:border-rose-400/25 dark:bg-rose-500/10 dark:text-rose-50',
+    title: 'Check your email address',
+    body: 'Please add a valid email address so I can reply to you.',
+  },
+  'invalid-message': {
+    role: 'alert',
+    className:
+      'border-rose-600/25 bg-rose-500/10 text-rose-950 dark:border-rose-400/25 dark:bg-rose-500/10 dark:text-rose-50',
+    title: 'Your message is empty',
+    body: 'Please write a message before sending the form.',
   },
   unavailable: {
     role: 'status',
@@ -48,22 +70,8 @@ function isStatusKey(value: string): value is StatusKey {
   return value in statusMessages;
 }
 
-function StatusBanner({ status }: { status: StatusKey }) {
-  const message = statusMessages[status];
-
-  return (
-    <div
-      role={message.role}
-      className={`rounded-2xl border px-5 py-4 backdrop-blur-xl ${message.className}`}
-    >
-      <p className="text-sm font-bold">{message.title}</p>
-      <p className="mt-1 text-sm leading-relaxed opacity-80">{message.body}</p>
-    </div>
-  );
-}
-
 const inputClasses =
-  'mt-2 h-12 w-full rounded-full border border-slate-900/15 bg-white/70 px-4 text-base font-semibold outline-none transition-colors placeholder:font-normal placeholder:text-slate-400 focus:border-teal-600/50 focus:ring-2 focus:ring-teal-500/30 dark:border-white/10 dark:bg-slate-950/40 dark:placeholder:text-slate-500 dark:focus:border-teal-300/40';
+  'mt-2 h-12 w-full rounded-full border border-slate-900/15 bg-white/70 px-4 text-base font-semibold outline-none transition-colors placeholder:font-normal placeholder:text-slate-600 focus:border-teal-700 focus:ring-2 focus:ring-teal-700 dark:border-white/10 dark:bg-slate-950/40 dark:placeholder:text-slate-400 dark:focus:border-teal-300 dark:focus:ring-teal-300';
 
 export default async function ContactPage({ searchParams }: ContactPageProps) {
   const { status: rawStatus } = await searchParams;
@@ -73,15 +81,23 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
       : Array.isArray(rawStatus) && rawStatus[0] && isStatusKey(rawStatus[0])
         ? rawStatus[0]
         : null;
+  const invalidField =
+    status === 'invalid-name'
+      ? 'name'
+      : status === 'invalid-email'
+        ? 'email'
+        : status === 'invalid-message'
+          ? 'message'
+          : null;
 
   return (
-    <main className="relative flex min-h-svh w-full flex-col overflow-x-clip bg-background px-6 py-6 text-slate-900 transition-colors duration-300 dark:text-slate-100">
+    <main id="main" tabIndex={-1} className="relative flex min-h-svh w-full flex-col overflow-x-clip bg-background px-6 py-6 text-slate-900 transition-colors duration-300 dark:text-slate-100 focus:outline-none">
       <Navbar />
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col py-6 sm:px-8 sm:py-8 lg:px-12 lg:py-10">
         <section aria-label="Contact" className="flex flex-1 flex-col gap-8 sm:gap-10">
           <div className="flex flex-col-reverse items-center gap-6 sm:flex-row sm:justify-between sm:gap-8 lg:gap-12">
             <div className="w-full max-w-3xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400">
                 Contact
               </p>
               <h1 className="mt-4 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
@@ -101,7 +117,16 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
             </div>
           </div>
 
-          {status && <StatusBanner status={status} />}
+          {status && (
+            <StatusBanner
+              id="contact-status"
+              focusOnMount
+              role={statusMessages[status].role}
+              className={statusMessages[status].className}
+              title={statusMessages[status].title}
+              body={statusMessages[status].body}
+            />
+          )}
 
           <form
             action="/contact/send"
@@ -112,7 +137,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
               <div>
                 <label
                   htmlFor="contact-name"
-                  className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400"
+                  className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-600 dark:text-slate-400"
                 >
                   Name
                 </label>
@@ -124,6 +149,8 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
                   maxLength={200}
                   autoComplete="name"
                   placeholder="Your name"
+                  aria-invalid={invalidField === 'name'}
+                  aria-describedby={invalidField === 'name' ? 'contact-status' : undefined}
                   className={inputClasses}
                 />
               </div>
@@ -131,7 +158,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
               <div>
                 <label
                   htmlFor="contact-email"
-                  className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400"
+                  className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-600 dark:text-slate-400"
                 >
                   Email
                 </label>
@@ -143,6 +170,8 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
                   maxLength={320}
                   autoComplete="email"
                   placeholder="you@example.com"
+                  aria-invalid={invalidField === 'email'}
+                  aria-describedby={invalidField === 'email' ? 'contact-status' : undefined}
                   className={inputClasses}
                 />
               </div>
@@ -151,7 +180,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
             <div className="mt-5">
               <label
                 htmlFor="contact-message"
-                className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400"
+                className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-600 dark:text-slate-400"
               >
                 Message
               </label>
@@ -162,7 +191,9 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
                 maxLength={5000}
                 rows={6}
                 placeholder="What would you like to talk about?"
-                className="mt-2 w-full resize-y rounded-2xl border border-slate-900/15 bg-white/70 p-4 text-base leading-relaxed outline-none transition-colors placeholder:text-slate-400 focus:border-teal-600/50 focus:ring-2 focus:ring-teal-500/30 dark:border-white/10 dark:bg-slate-950/40 dark:placeholder:text-slate-500 dark:focus:border-teal-300/40"
+                aria-invalid={invalidField === 'message'}
+                aria-describedby={invalidField === 'message' ? 'contact-status' : undefined}
+                className="mt-2 w-full resize-y rounded-2xl border border-slate-900/15 bg-white/70 p-4 text-base leading-relaxed outline-none transition-colors placeholder:text-slate-600 focus:border-teal-700 focus:ring-2 focus:ring-teal-700 dark:border-white/10 dark:bg-slate-950/40 dark:placeholder:text-slate-400 dark:focus:border-teal-300 dark:focus:ring-teal-300"
               />
             </div>
 
@@ -180,17 +211,17 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
             <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <button
                 type="submit"
-                className="liquid-cta flex h-12 w-full items-center justify-center rounded-full px-6 text-sm font-bold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500/70 sm:w-auto dark:text-slate-950"
+                className="liquid-cta flex h-12 w-full items-center justify-center rounded-full px-6 text-sm font-bold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700 dark:focus-visible:ring-teal-300 sm:w-auto dark:text-slate-950"
               >
                 <span className="relative z-10">Send message</span>
               </button>
-              <p className="text-center text-xs leading-relaxed text-slate-500 sm:text-left dark:text-slate-400">
+              <p className="text-center text-xs leading-relaxed text-slate-600 sm:text-left dark:text-slate-400">
                 Your email is only used to reply to you.
               </p>
             </div>
           </form>
 
-          <p className="text-center text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+          <p className="text-center text-xs leading-relaxed text-slate-600 dark:text-slate-400">
             Prefer a CV?{' '}
             <a
               href="https://resume.awangkusyazwan.my"

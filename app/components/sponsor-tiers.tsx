@@ -76,7 +76,7 @@ export function SponsorTiers({ currency: initialCurrency, configured }: SponsorT
   return (
     <>
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400">
           Pay with
         </span>
         {SUPPORTED_CURRENCIES.map((supported) => {
@@ -88,7 +88,7 @@ export function SponsorTiers({ currency: initialCurrency, configured }: SponsorT
               type="button"
               onClick={() => selectCurrency(supported)}
               aria-pressed={active}
-              className={`rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-wide transition-colors ${active
+              className={`rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700 dark:focus-visible:ring-teal-300 ${active
                 ? 'border-teal-600/40 bg-teal-600/10 text-teal-700 dark:border-teal-300/40 dark:bg-teal-400/10 dark:text-teal-300'
                 : 'border-slate-900/10 bg-white/50 text-slate-600 hover:border-teal-600/30 hover:text-teal-700 dark:border-white/10 dark:bg-slate-900/30 dark:text-slate-300 dark:hover:border-teal-300/30 dark:hover:text-teal-300'
                 }`}
@@ -119,7 +119,7 @@ export function SponsorTiers({ currency: initialCurrency, configured }: SponsorT
 
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400">
                     0{index + 1}
                   </p>
                   <h2 className="mt-2 text-xl font-bold tracking-tight">{tier.name}</h2>
@@ -136,7 +136,7 @@ export function SponsorTiers({ currency: initialCurrency, configured }: SponsorT
               <button
                 type="submit"
                 disabled={!configured}
-                className="liquid-cta mt-6 flex h-11 w-full items-center justify-center rounded-full px-4 text-sm font-bold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500/70 disabled:cursor-not-allowed disabled:opacity-60 dark:text-slate-950"
+                className="liquid-cta mt-6 flex h-11 w-full items-center justify-center rounded-full px-4 text-sm font-bold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700 dark:focus-visible:ring-teal-300 disabled:cursor-not-allowed disabled:opacity-60 dark:text-slate-950"
               >
                 <span className="relative z-10">Sponsor {price}</span>
               </button>
@@ -161,13 +161,13 @@ export function SponsorTiers({ currency: initialCurrency, configured }: SponsorT
 
           <div className="mt-5 flex flex-col gap-3 sm:flex-row">
             <input type="hidden" name="currency" value={currency} />
-            <div className="flex h-12 min-w-0 flex-1 items-center rounded-full border border-slate-900/15 bg-white/70 transition-colors focus-within:border-teal-600/50 focus-within:ring-2 focus-within:ring-teal-500/30 dark:border-white/10 dark:bg-slate-950/40 dark:focus-within:border-teal-300/40">
+            <div className="flex h-12 min-w-0 flex-1 items-center rounded-full border border-slate-900/15 bg-white/70 transition-colors focus-within:border-teal-700 focus-within:ring-2 focus-within:ring-teal-700 dark:border-white/10 dark:bg-slate-950/40 dark:focus-within:border-teal-300 dark:focus-within:ring-teal-300">
               <label htmlFor="sponsor-amount" className="sr-only">
                 Custom sponsorship amount
               </label>
               <span
                 aria-hidden="true"
-                className="pl-4 pr-2 text-sm font-semibold text-slate-500 dark:text-slate-400"
+                className="pl-4 pr-2 text-sm font-semibold text-slate-600 dark:text-slate-400"
               >
                 {currencySymbol}
               </span>
@@ -182,11 +182,11 @@ export function SponsorTiers({ currency: initialCurrency, configured }: SponsorT
                 inputMode="decimal"
                 placeholder="25"
                 aria-describedby="custom-amount-help"
-                className="h-full min-w-0 flex-1 bg-transparent pr-2 text-base font-semibold outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                className="h-full min-w-0 flex-1 bg-transparent pr-2 text-base font-semibold outline-none placeholder:text-slate-600 dark:placeholder:text-slate-400"
               />
               <span
                 aria-hidden="true"
-                className="pr-4 text-[0.65rem] font-bold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400"
+                className="pr-4 text-[0.65rem] font-bold uppercase tracking-[0.16em] text-slate-600 dark:text-slate-400"
               >
                 {currency}
               </span>
@@ -195,7 +195,7 @@ export function SponsorTiers({ currency: initialCurrency, configured }: SponsorT
             <button
               type="submit"
               disabled={!configured}
-              className="liquid-cta flex h-12 items-center justify-center rounded-full px-6 text-sm font-bold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500/70 disabled:cursor-not-allowed disabled:opacity-60 dark:text-slate-950"
+              className="liquid-cta flex h-12 items-center justify-center rounded-full px-6 text-sm font-bold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700 dark:focus-visible:ring-teal-300 disabled:cursor-not-allowed disabled:opacity-60 dark:text-slate-950"
             >
               <span className="relative z-10">Continue to Stripe</span>
             </button>
@@ -203,7 +203,7 @@ export function SponsorTiers({ currency: initialCurrency, configured }: SponsorT
         </form>
 
         <aside className="rounded-2xl border border-dashed border-slate-900/15 bg-white/40 p-6 backdrop-blur-md dark:border-white/10 dark:bg-slate-900/25">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400">
             What your support funds
           </p>
           <ul className="mt-4 space-y-3">
@@ -217,7 +217,7 @@ export function SponsorTiers({ currency: initialCurrency, configured }: SponsorT
               </li>
             ))}
           </ul>
-          <p className="mt-6 border-t border-slate-900/10 pt-4 text-xs leading-relaxed text-slate-500 dark:border-white/10 dark:text-slate-400">
+          <p className="mt-6 border-t border-slate-900/10 pt-4 text-xs leading-relaxed text-slate-600 dark:border-white/10 dark:text-slate-400">
             Payments are handled by Stripe. I never see your card details, only that you sponsored me.
           </p>
         </aside>

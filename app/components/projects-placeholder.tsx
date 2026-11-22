@@ -9,10 +9,10 @@ export const ProjectsPlaceholder = () => {
       <div className="mx-auto w-32 sm:w-44 lg:w-56">
         <LottieAnimation src="/lottie/work.json" className="aspect-square w-full" />
       </div>
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400">
         Projects
       </p>
-      <h3 className="mt-3 text-xl font-bold sm:text-2xl">Projects are coming soon</h3>
+      <h2 className="mt-3 text-xl font-bold sm:text-2xl">Projects are coming soon</h2>
       <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-slate-600 dark:text-slate-400">
         I&apos;m currently building new work to showcase here. Check back soon.
       </p>

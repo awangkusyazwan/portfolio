@@ -97,7 +97,7 @@ export const ThemeToggle = () => {
       aria-label="Dark mode"
       title={label}
       onClick={toggleTheme}
-      className="group relative inline-flex h-7 w-14 shrink-0 items-center rounded-full bg-slate-900/15 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.1)] transition-[background-color,transform] duration-300 hover:bg-slate-900/20 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/70 motion-reduce:transition-none dark:bg-teal-500 dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.2)] dark:hover:bg-teal-400"
+      className="group relative inline-flex h-7 w-14 shrink-0 items-center rounded-full bg-slate-900/15 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.1)] transition-[background-color,transform] duration-300 hover:bg-slate-900/20 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-700 motion-reduce:transition-none dark:focus-visible:ring-purple-300 dark:bg-teal-500 dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.2)] dark:hover:bg-teal-400"
     >
       {/* Track icons: sun on the light side, moon on the dark side */}
       <span

@@ -10,12 +10,12 @@ export const Hero = () => {
       </div>
 
       <div className="relative z-10 w-full max-w-2xl">
-        <h2 className="text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
+        <h1 className="text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
           Reimagining <br />
           <span className="bg-gradient-to-r from-teal-700 to-cyan-700 bg-clip-text text-transparent dark:from-teal-300 dark:to-cyan-400">
             the Future
           </span>
-        </h2>
+        </h1>
         <p className="mt-6 max-w-lg text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300">
           Welcome to my portfolio site. I&apos;m a software developer specialising in web
           development using the MERN stack.
@@ -34,7 +34,7 @@ export const Hero = () => {
       </div>
 
       <aside className="relative z-10 hidden w-full max-w-sm rounded-2xl border border-slate-900/10 bg-white/60 p-6 backdrop-blur-xl transition-colors duration-500 hover:border-purple-500/60 md:block lg:mb-1 lg:w-96 lg:shrink-0 dark:border-white/10 dark:bg-slate-900/40 dark:hover:border-purple-500/50">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400">
           Stack used for this portfolio
         </p>
         <div className="mt-4 flex flex-wrap gap-2">

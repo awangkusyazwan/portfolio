@@ -28,7 +28,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
       </head>
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-5 focus:py-2 focus:text-sm focus:font-bold focus:text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-700 dark:focus:bg-slate-900 dark:focus:text-white dark:focus:ring-purple-300"
+        >
+          Skip to main content
+        </a>
+        {children}
+      </body>
     </html>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { LottieAnimation } from '../components/lottie-animation';
 import { Navbar } from '../components/navbar';
 import { SponsorTiers } from '../components/sponsor-tiers';
+import { StatusBanner } from '../components/status-banner';
 import { getStripeSecretKey } from './stripe-env';
 import { SUPPORTED_CURRENCIES, getDefaultCurrency, isSupportedCurrency } from './sponsorship';
 
@@ -65,20 +66,6 @@ function resolveCurrency(value: string | string[] | undefined): (typeof SUPPORTE
   return isSupportedCurrency(requested) ? requested : getDefaultCurrency();
 }
 
-function StatusBanner({ status }: { status: StatusKey }) {
-  const message = statusMessages[status];
-
-  return (
-    <div
-      role={message.tone === 'error' ? 'alert' : 'status'}
-      className={`rounded-2xl border px-5 py-4 backdrop-blur-xl ${bannerToneClasses[message.tone]}`}
-    >
-      <p className="text-sm font-bold">{message.title}</p>
-      <p className="mt-1 text-sm leading-relaxed opacity-80">{message.body}</p>
-    </div>
-  );
-}
-
 export default async function SponsorMePage({ searchParams }: SponsorMePageProps) {
   const { status: rawStatus, currency: rawCurrency } = await searchParams;
   const status = typeof rawStatus === 'string' && isStatusKey(rawStatus) ? rawStatus : null;
@@ -88,13 +75,13 @@ export default async function SponsorMePage({ searchParams }: SponsorMePageProps
   const configured = Boolean(await getStripeSecretKey());
 
   return (
-    <main className="relative flex min-h-svh w-full flex-col overflow-x-clip bg-background px-6 py-6 text-slate-900 transition-colors duration-300 dark:text-slate-100">
+    <main id="main" tabIndex={-1} className="relative flex min-h-svh w-full flex-col overflow-x-clip bg-background px-6 py-6 text-slate-900 transition-colors duration-300 dark:text-slate-100 focus:outline-none">
       <Navbar />
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col py-6 sm:px-8 sm:py-8 lg:px-12 lg:py-10">
         <section aria-label="Sponsor me" className="flex flex-1 flex-col gap-8 sm:gap-10">
           <div className="flex flex-col-reverse items-center gap-6 sm:flex-row sm:justify-between sm:gap-8 lg:gap-12">
             <div className="w-full max-w-3xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400">
                 Sponsor
               </p>
               <h1 className="mt-4 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
@@ -125,12 +112,29 @@ export default async function SponsorMePage({ searchParams }: SponsorMePageProps
             </div>
           </div>
 
-          {status && <StatusBanner status={status} />}
-          {!configured && !status && <StatusBanner status="unavailable" />}
+          {status && (
+            <StatusBanner
+              id="sponsor-status"
+              focusOnMount
+              role={statusMessages[status].tone === 'error' ? 'alert' : 'status'}
+              className={bannerToneClasses[statusMessages[status].tone]}
+              title={statusMessages[status].title}
+              body={statusMessages[status].body}
+            />
+          )}
+          {!configured && !status && (
+            <StatusBanner
+              id="sponsor-status"
+              role="status"
+              className={bannerToneClasses.warning}
+              title={statusMessages.unavailable.title}
+              body={statusMessages.unavailable.body}
+            />
+          )}
 
           <SponsorTiers currency={currency} configured={configured} />
 
-          <p className="text-center text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+          <p className="text-center text-xs leading-relaxed text-slate-600 dark:text-slate-400">
             You will be redirected to Stripe to complete your sponsorship. No account is
             required.
           </p>

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
+import { MotionToggle } from './motion-toggle';
 import { ThemeToggle } from './theme-toggle';
 
 const SCROLL_COLLAPSE_OFFSET = 30;
@@ -14,7 +15,7 @@ const navLinks = [
 ];
 
 const focusRingClasses =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/70';
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-700 dark:focus-visible:ring-purple-300';
 
 const menuItemClasses = `flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium text-slate-700 transition-colors duration-300 hover:bg-slate-900/[0.04] active:bg-slate-900/[0.07] dark:text-slate-200 dark:hover:bg-white/[0.06] dark:active:bg-white/10 ${focusRingClasses}`;
 
@@ -97,6 +98,8 @@ export const Navbar = () => {
   const linksRef = useRef<HTMLDivElement>(null);
   const sheenFrame = useRef<number | null>(null);
   const collapsedRef = useRef(false);
+  const mobileToggleRef = useRef<HTMLButtonElement>(null);
+  const compactToggleRef = useRef<HTMLButtonElement>(null);
 
   const compactMenuOpen = scrolled && menuOpen;
   const mobileMenuOpen = menuOpen && !scrolled;
@@ -122,12 +125,17 @@ export const Navbar = () => {
     if (!menuOpen) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMenuOpen(false);
+      if (event.key !== 'Escape') return;
+
+      setMenuOpen(false);
+      // The open panel becomes inert; return focus to the button that opened it.
+      const toggle = scrolled ? compactToggleRef.current : mobileToggleRef.current;
+      toggle?.focus();
     };
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [menuOpen]);
+  }, [menuOpen, scrolled]);
 
   // Keep the liquid pill aligned if the links change size (font load, resize).
   useEffect(() => {
@@ -210,7 +218,7 @@ export const Navbar = () => {
             : 'opacity-100 delay-200 duration-300'
             }`}
         >
-          <h1
+          <span
             className="nav-reveal relative z-10 min-w-0"
             style={{ animationDelay: '140ms' }}
           >
@@ -222,7 +230,7 @@ export const Navbar = () => {
                 Syazwan
               </span>
             </Link>
-          </h1>
+          </span>
 
           {/* Desktop controls */}
           <div
@@ -263,6 +271,7 @@ export const Navbar = () => {
               ))}
             </div>
 
+            <MotionToggle />
             <ThemeToggle />
 
             <Link
@@ -292,9 +301,11 @@ export const Navbar = () => {
             className="nav-reveal relative z-10 flex shrink-0 items-center gap-1 sm:hidden"
             style={{ animationDelay: '240ms' }}
           >
+            <MotionToggle />
             <ThemeToggle />
 
             <button
+              ref={mobileToggleRef}
               type="button"
               onClick={() => setMenuOpen((open) => !open)}
               aria-expanded={mobileMenuOpen}
@@ -309,6 +320,7 @@ export const Navbar = () => {
 
         {/* The hamburger revealed by the shrink. */}
         <button
+          ref={compactToggleRef}
           type="button"
           inert={!scrolled}
           aria-hidden={!scrolled}
@@ -362,10 +374,13 @@ export const Navbar = () => {
             <MenuLinks onNavigate={() => setMenuOpen(false)} />
 
             <div className="mt-1 flex items-center justify-between gap-2 rounded-2xl px-2 py-1">
-              <span className="px-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
-                Theme
+              <span className="px-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600 dark:text-slate-400">
+                Display
               </span>
-              <ThemeToggle />
+              <div className="flex items-center gap-1">
+                <MotionToggle />
+                <ThemeToggle />
+              </div>
             </div>
 
             <MenuContactLink onNavigate={() => setMenuOpen(false)} />

@@ -62,9 +62,9 @@ export async function POST(request: Request) {
   const email = readField(formData, 'email');
   const message = readField(formData, 'message');
 
-  if (!name || !email || !message || !EMAIL_PATTERN.test(email)) {
-    return redirectWithStatus(request, 'invalid');
-  }
+  if (!name) return redirectWithStatus(request, 'invalid-name');
+  if (!email || !EMAIL_PATTERN.test(email)) return redirectWithStatus(request, 'invalid-email');
+  if (!message) return redirectWithStatus(request, 'invalid-message');
 
   const { apiKey, fromEmail } = await getResendConfig();
 
