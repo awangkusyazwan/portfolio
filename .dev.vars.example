@@ -1,0 +1,10 @@
+# Stripe secret key used by the /sponsor-me checkout.
+# Copy to .env.local for `next dev`, or to .dev.vars / a Cloudflare secret for preview/deploy.
+STRIPE_SECRET_KEY=sk_test_replace_me
+
+# Optional: three-letter ISO currency for sponsorships (AUD, MYR, SGD, or USD; defaults to "usd").
+# STRIPE_CURRENCY=usd
+
+# Optional: canonical site origin used for the Stripe success/cancel URLs
+# (defaults to the origin of the incoming request).
+# SITE_URL=https://awangkusyazwan.my

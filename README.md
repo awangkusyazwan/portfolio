@@ -29,6 +29,33 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Sponsorship page
+
+The `/sponsor-me` route connects visitors to a Stripe Checkout payment page. Choosing a
+tier submits a form to a server route that creates a one-time Checkout Session and
+redirects the visitor to Stripe to complete the payment.
+
+### Environment variables
+
+| Variable              | Required | Description                                                                                     |
+| --------------------- | -------- | ----------------------------------------------------------------------------------------------- |
+| `STRIPE_SECRET_KEY`   | Yes      | Stripe secret key used to create Checkout Sessions. Set a test key (e.g. `sk_test_...`) for dev. |
+| `STRIPE_CURRENCY`     | No       | Three-letter ISO currency for sponsorships (`AUD`, `MYR`, `SGD`, or `USD`; defaults to `usd`). |
+| `SITE_URL`            | No       | Canonical site origin used for the Stripe success/cancel URLs (defaults to the request origin).  |
+
+For `next dev`, put `STRIPE_SECRET_KEY` in `.env.local`. For OpenNext/Cloudflare, put it in
+`.dev.vars` or run `npx wrangler secret put STRIPE_SECRET_KEY`.
+
+```bash
+# local (next dev)
+echo "STRIPE_SECRET_KEY=sk_test_..." > .env.local
+
+# cloudflare / opennext
+npx wrangler secret put STRIPE_SECRET_KEY
+```
+
+Use Stripe test keys while developing, and live keys before deploying the payment flow.
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.

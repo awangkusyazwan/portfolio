@@ -10,6 +10,7 @@ const SCROLL_COLLAPSE_OFFSET = 30;
 const navLinks = [
   { id: 'work', label: 'Work', href: '/work' },
   { id: 'about', label: 'About', href: '/about' },
+  { id: 'sponsor', label: 'Sponsor', href: '/sponsor-me' },
 ];
 
 const focusRingClasses =

@@ -3,7 +3,10 @@
 	"main": ".open-next/worker.js",
 	"name": "portfolio",
 	"compatibility_date": "2026-11-18",
-	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
 	"assets": {
 		"directory": ".open-next/assets",
 		"binding": "ASSETS"
@@ -11,14 +14,26 @@
 	"services": [
 		{
 			// Self-reference service binding, the service name must match the worker name
-			// see https://opennext.js.org/cloudflare/caching
+			// see https://opennextjs.org/cloudflare/caching
 			"binding": "WORKER_SELF_REFERENCE",
 			"service": "portfolio"
 		}
 	],
+	"secrets_store_secrets": [
+		{
+			"binding": "STRIPE_SECRET_KEY",
+			"store_id": "a17f23808ed3474aa94521d60783be05",
+			"secret_name": "STRIPE_SECRET_KEY"
+		},
+		{
+			"binding": "STRIPE_PUBLISHABLE_KEY",
+			"store_id": "a17f23808ed3474aa94521d60783be05",
+			"secret_name": "STRIPE_PUBLISHABLE_KEY"
+		}
+	],
 	"images": {
 		// Enable image optimization
-		// see https://opennext.js.org/cloudflare/howtos/image
+		// see https://opennextjs.org/cloudflare/howtos/image
 		"binding": "IMAGES"
 	},
 	"observability": {
