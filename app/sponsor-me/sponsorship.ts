@@ -27,8 +27,8 @@ export const SPONSOR_TIERS = [
   },
 ] as const satisfies readonly SponsorTier[];
 
-export const MIN_CUSTOM_AMOUNT = 1;
-export const MAX_CUSTOM_AMOUNT = 500;
+export const MIN_CUSTOM_AMOUNT = 2;
+export const MAX_CUSTOM_AMOUNT = 1000;
 
 export const SUPPORTED_CURRENCIES = ['AUD', 'MYR', 'SGD', 'USD'] as const;
 export type SupportedCurrency = (typeof SUPPORTED_CURRENCIES)[number];
