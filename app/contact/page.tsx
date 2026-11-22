@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { LottieAnimation } from '../components/lottie-animation';
 import { Navbar } from '../components/navbar';
 
 export const metadata: Metadata = {
@@ -78,20 +79,26 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
       <Navbar />
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col py-6 sm:px-8 sm:py-8 lg:px-12 lg:py-10">
         <section aria-label="Contact" className="flex flex-1 flex-col gap-8 sm:gap-10">
-          <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-              Contact
-            </p>
-            <h1 className="mt-4 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
-              Let&apos;s build something{' '}
-              <span className="bg-gradient-to-r from-teal-700 to-cyan-700 bg-clip-text text-transparent dark:from-teal-300 dark:to-cyan-400">
-                great together
-              </span>
-            </h1>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300">
-              Have a project, collaboration, or question in mind? Send me a note and
-              I&apos;ll get back to you as soon as I can.
-            </p>
+          <div className="flex flex-col-reverse items-center gap-6 sm:flex-row sm:justify-between sm:gap-8 lg:gap-12">
+            <div className="w-full max-w-3xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+                Contact
+              </p>
+              <h1 className="mt-4 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+                Let&apos;s build something{' '}
+                <span className="bg-gradient-to-r from-teal-700 to-cyan-700 bg-clip-text text-transparent dark:from-teal-300 dark:to-cyan-400">
+                  great together
+                </span>
+              </h1>
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300">
+                Have a project, collaboration, or question in mind? Send me a note and
+                I&apos;ll get back to you as soon as I can.
+              </p>
+            </div>
+
+            <div className="w-24 shrink-0 sm:w-32 lg:w-40">
+              <LottieAnimation src="/lottie/contact.json" className="aspect-square w-full" />
+            </div>
           </div>
 
           {status && <StatusBanner status={status} />}
