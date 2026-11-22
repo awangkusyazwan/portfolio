@@ -44,6 +44,11 @@
 			"binding": "RESEND_API_KEY",
 			"store_id": "a17f23808ed3474aa94521d60783be05",
 			"secret_name": "RESEND_API_KEY"
+		},
+		{
+			"binding": "CONTACT_FROM_EMAIL",
+			"store_id": "a17f23808ed3474aa94521d60783be05",
+			"secret_name": "CONTACT_FROM_EMAIL"
 		}
 	],
 	"images": {

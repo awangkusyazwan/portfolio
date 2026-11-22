@@ -81,7 +81,8 @@ your domain, set `CONTACT_FROM_EMAIL` to an address on it:
 ```bash
 npx wrangler secret put RESEND_API_KEY
 # or, with the Secrets Store used by this repo:
-npx wrangler secrets-store secret put a17f23808ed3474aa94521d60783be05 RESEND_API_KEY
+npx wrangler secrets-store secret create a17f23808ed3474aa94521d60783be05 \
+  --name RESEND_API_KEY --scopes workers --remote
 ```
 
 `RESEND_API_KEY` is already bound from the repo's Secrets Store in `wrangler.jsonc`. If you also
