@@ -20,8 +20,8 @@ export const SPONSOR_TIERS = [
     blurb: 'Keeps the side projects and open-source experiments coming.',
   },
   {
-    id: 'champion',
-    name: 'Champion',
+    id: 'angel',
+    name: 'Angel',
     amount: 100,
     blurb: 'Backs a bigger build — new tools, docs, and things shared freely on my website.',
   },

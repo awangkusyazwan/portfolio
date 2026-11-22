@@ -124,9 +124,9 @@ export function SponsorTiers({ currency: initialCurrency, configured }: SponsorT
                   </p>
                   <h2 className="mt-2 text-xl font-bold tracking-tight">{tier.name}</h2>
                 </div>
-                <p className="text-2xl font-black tracking-tight text-teal-700 dark:text-teal-300">
+                <span className="text-m font-black tracking-tight text-teal-700 dark:text-teal-300">
                   {price}
-                </p>
+                </span>
               </div>
 
               <p className="mt-4 flex-1 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
@@ -218,7 +218,7 @@ export function SponsorTiers({ currency: initialCurrency, configured }: SponsorT
             ))}
           </ul>
           <p className="mt-6 border-t border-slate-900/10 pt-4 text-xs leading-relaxed text-slate-500 dark:border-white/10 dark:text-slate-400">
-            Payments are handled by Stripe. I never see your card details.
+            Payments are handled by Stripe. I never see your card details, only that you sponsored me.
           </p>
         </aside>
       </div>
