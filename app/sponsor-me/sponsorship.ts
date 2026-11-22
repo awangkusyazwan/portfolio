@@ -47,6 +47,17 @@ export function getDefaultCurrency(): SupportedCurrency {
   return isSupportedCurrency(configured ?? '') ? (configured as SupportedCurrency) : 'USD';
 }
 
+/**
+ * Resolves a supported currency from an untrusted value (for example, a form
+ * field or query parameter) and falls back to the configured default when the
+ * value is missing or unsupported.
+ */
+export function resolveSupportedCurrency(value: unknown): SupportedCurrency {
+  const requested = typeof value === 'string' ? value.trim().toUpperCase() : '';
+
+  return isSupportedCurrency(requested) ? requested : getDefaultCurrency();
+}
+
 export function getCurrencyFractionDigits(currency: SupportedCurrency = getDefaultCurrency()): number {
   try {
     return (

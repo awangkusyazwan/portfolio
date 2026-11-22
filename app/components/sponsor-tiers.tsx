@@ -115,6 +115,7 @@ export function SponsorTiers({ currency: initialCurrency, configured }: SponsorT
                 }`}
             >
               <input type="hidden" name="tier" value={tier.id} />
+              <input type="hidden" name="currency" value={currency} />
 
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -159,6 +160,7 @@ export function SponsorTiers({ currency: initialCurrency, configured }: SponsorT
           </p>
 
           <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+            <input type="hidden" name="currency" value={currency} />
             <div className="flex h-12 min-w-0 flex-1 items-center rounded-full border border-slate-900/15 bg-white/70 transition-colors focus-within:border-teal-600/50 focus-within:ring-2 focus-within:ring-teal-500/30 dark:border-white/10 dark:bg-slate-950/40 dark:focus-within:border-teal-300/40">
               <label htmlFor="sponsor-amount" className="sr-only">
                 Custom sponsorship amount

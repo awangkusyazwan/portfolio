@@ -5,7 +5,7 @@ import {
   MAX_CUSTOM_AMOUNT,
   MIN_CUSTOM_AMOUNT,
   SPONSOR_TIERS,
-  getDefaultCurrency,
+  resolveSupportedCurrency,
   toMinorUnits,
   type SupportedCurrency,
 } from '../sponsorship';
@@ -88,7 +88,7 @@ export async function POST(request: Request) {
     return redirectWithStatus(request, 'invalid');
   }
 
-  const currency = getDefaultCurrency();
+  const currency = resolveSupportedCurrency(formData.get('currency'));
   const item = resolveItem(formData, currency);
 
   if (!item) {
@@ -121,7 +121,7 @@ export async function POST(request: Request) {
         source: 'portfolio-sponsor-page',
         tier: item.tier,
       },
-      success_url: `${origin}${SPONSOR_PAGE_PATH}?status=success&session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${origin}${SPONSOR_PAGE_PATH}?status=success&session_id={CHECKOUT_SESSION_ID}&currency=${currency}`,
       cancel_url: `${origin}${SPONSOR_PAGE_PATH}?status=cancelled`,
     });
 
