@@ -5,8 +5,10 @@ type SecretsStoreAccessor = {
 };
 
 type StripeEnv = {
-  STRIPE_LIVE_SECRET_KEY?: unknown;
-  STRIPE_LIVE_PUBLISHABLE_KEY?: unknown;
+  STRIPE_SECRET_KEY?: unknown;
+  STRIPE_PUBLISHABLE_KEY?: unknown;
+  STRIPE_SECRET_KEY_SANDBOX?: unknown;
+  STRIPE_PUBLISHABLE_KEY_SANDBOX?: unknown;
 };
 
 const readEnvValue = async (value: unknown, processValue?: string): Promise<string | undefined> => {
@@ -15,7 +17,7 @@ const readEnvValue = async (value: unknown, processValue?: string): Promise<stri
   }
 
   // Secrets Store bindings expose the secret through an async accessor,
-  // e.g. `await env.STRIPE_LIVE_SECRET_KEY.get()`.
+  // e.g. `await env.STRIPE_SECRET_KEY.get()`.
   if (value && typeof (value as SecretsStoreAccessor).get === 'function') {
     const result = await (value as SecretsStoreAccessor).get();
 
@@ -45,8 +47,12 @@ export async function getStripeEnv(): Promise<{
   }
 
   const [secretKey, publishableKey] = await Promise.all([
-    readEnvValue(cloudflareEnv?.STRIPE_LIVE_SECRET_KEY, process.env.STRIPE_SECRET_KEY),
-    readEnvValue(cloudflareEnv?.STRIPE_LIVE_PUBLISHABLE_KEY, process.env.STRIPE_PUBLISHABLE_KEY),
+    (await readEnvValue(cloudflareEnv?.STRIPE_SECRET_KEY_SANDBOX)) ??
+      (await readEnvValue(cloudflareEnv?.STRIPE_SECRET_KEY)) ??
+      process.env.STRIPE_SECRET_KEY_SANDBOX,
+    (await readEnvValue(cloudflareEnv?.STRIPE_PUBLISHABLE_KEY_SANDBOX)) ??
+      (await readEnvValue(cloudflareEnv?.STRIPE_PUBLISHABLE_KEY)) ??
+      process.env.STRIPE_PUBLISHABLE_KEY_SANDBOX,
   ]);
 
   return { secretKey, publishableKey };

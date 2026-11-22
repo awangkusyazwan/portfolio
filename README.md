@@ -39,22 +39,25 @@ redirects the visitor to Stripe to complete the payment.
 
 | Variable              | Required | Description                                                                                     |
 | --------------------- | -------- | ----------------------------------------------------------------------------------------------- |
-| `STRIPE_SECRET_KEY`   | Yes      | Stripe secret key used to create Checkout Sessions. Set a test key (e.g. `sk_test_...`) for dev. |
+| `STRIPE_SECRET_KEY`   | Yes      | Stripe secret key used to create Checkout Sessions. Live key in production; for dev use `STRIPE_SECRET_KEY_SANDBOX`. |
 | `STRIPE_CURRENCY`     | No       | Three-letter ISO currency for sponsorships (`AUD`, `MYR`, `SGD`, or `USD`; defaults to `usd`). |
 | `SITE_URL`            | No       | Canonical site origin used for the Stripe success/cancel URLs (defaults to the request origin).  |
 
-For `next dev`, put `STRIPE_SECRET_KEY` in `.env.local`. For OpenNext/Cloudflare, put it in
-`.dev.vars` or run `npx wrangler secret put STRIPE_SECRET_KEY`.
+For `next dev`, put the sandbox key in `.env.local` (for example, `STRIPE_SECRET_KEY_SANDBOX=sk_test_...`).
+For OpenNext/Cloudflare, put the sandbox secret in `.dev.vars` or run
+`npx wrangler secret put STRIPE_SECRET_KEY_SANDBOX`.
 
 ```bash
 # local (next dev)
-echo "STRIPE_SECRET_KEY=sk_test_..." > .env.local
+echo "STRIPE_SECRET_KEY_SANDBOX=sk_test_..." > .env.local
 
 # cloudflare / opennext
-npx wrangler secret put STRIPE_SECRET_KEY
+npx wrangler secret put STRIPE_SECRET_KEY_SANDBOX
 ```
 
-Use Stripe test keys while developing, and live keys before deploying the payment flow.
+Use sandbox keys while developing, and live keys before deploying the payment flow. Production keeps
+the `STRIPE_*_KEY` pattern (for example, `STRIPE_SECRET_KEY` / `STRIPE_PUBLISHABLE_KEY`), while dev uses
+the `STRIPE_*_KEY_SANDBOX` pattern (for example, `STRIPE_SECRET_KEY_SANDBOX` / `STRIPE_PUBLISHABLE_KEY_SANDBOX`).
 
 ## Deploy on Vercel
 

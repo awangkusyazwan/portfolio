@@ -23,12 +23,22 @@
 		{
 			"binding": "STRIPE_SECRET_KEY",
 			"store_id": "a17f23808ed3474aa94521d60783be05",
-			"secret_name": "STRIPE_LIVE_SECRET_KEY"
+			"secret_name": "STRIPE_SECRET_KEY"
 		},
 		{
 			"binding": "STRIPE_PUBLISHABLE_KEY",
 			"store_id": "a17f23808ed3474aa94521d60783be05",
-			"secret_name": "STRIPE_LIVE_PUBLISHABLE_KEY"
+			"secret_name": "STRIPE_PUBLISHABLE_KEY"
+		},
+		{
+			"binding": "STRIPE_SECRET_KEY_SANDBOX",
+			"store_id": "a17f23808ed3474aa94521d60783be05",
+			"secret_name": "STRIPE_SECRET_KEY_SANDBOX"
+		},
+		{
+			"binding": "STRIPE_PUBLISHABLE_KEY_SANDBOX",
+			"store_id": "a17f23808ed3474aa94521d60783be05",
+			"secret_name": "STRIPE_PUBLISHABLE_KEY_SANDBOX"
 		}
 	],
 	"images": {

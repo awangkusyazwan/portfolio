@@ -1,6 +1,9 @@
-# Stripe secret key used by the /sponsor-me checkout.
+# Stripe secret key used by the /sponsor-me checkout (sandbox for dev).
 # Copy to .env.local for `next dev`, or to .dev.vars / a Cloudflare secret for preview/deploy.
-STRIPE_SECRET_KEY=sk_test_replace_me
+STRIPE_SECRET_KEY_SANDBOX=sk_test_replace_me
+
+# Stripe publishable key used by the /sponsor-me checkout (sandbox for dev).
+STRIPE_PUBLISHABLE_KEY_SANDBOX=pk_test_replace_me
 
 # Optional: three-letter ISO currency for sponsorships (AUD, MYR, SGD, or USD; defaults to "usd").
 # STRIPE_CURRENCY=usd
